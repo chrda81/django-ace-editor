@@ -1,4 +1,4 @@
-(function () {
+(function() {
     function getDocHeight() {
         var D = document;
         return Math.max(
@@ -39,9 +39,9 @@
         element = $(element);
         var n = document.createTextNode(' ');
         element.appendChild(n);
-        (function () {
-            n.parentNode.removeChild(n)
-        }).defer();
+        (function() {
+            n.parentNode.removeChild(n);
+        }.defer());
         return element;
     }
 
@@ -55,9 +55,9 @@
             window.fullscreen = false;
         } else {
             window.ace_widget = {
-                'width': widget.offsetWidth,
-                'height': widget.offsetHeight,
-            }
+                width: widget.offsetWidth,
+                height: widget.offsetHeight,
+            };
 
             main_block.className = 'django-ace-editor-fullscreen';
 
@@ -84,47 +84,49 @@
 
         // Toolbar maximize/minimize button
         var min_max = toolbar.getElementsByClassName('django-ace-max_min');
-        min_max[0].onchange = function () {
+        min_max[0].onchange = function() {
             minimizeMaximize(widget, main_block, editor);
             return false;
         };
 
-        var mode_select = toolbar.getElementsByClassName('django-ace-mode_select');
-        mode_select[0].onclick = function () {
-            editor.getSession().setMode("ace/mode/" + this.value);
+        var mode_select = toolbar.getElementsByClassName(
+            'django-ace-mode_select'
+        );
+        mode_select[0].onclick = function() {
+            editor.getSession().setMode('ace/mode/' + this.value);
             return false;
         };
 
         editor.getSession().setValue(textarea.value);
 
         // the editor is initially absolute positioned
-        textarea.style.display = "none";
+        textarea.style.display = 'none';
 
         // options
         if (mode) {
-            editor.getSession().setMode("ace/mode/" + mode);
+            editor.getSession().setMode('ace/mode/' + mode);
         }
         if (theme) {
-            editor.setTheme("ace/theme/" + theme);
+            editor.setTheme('ace/theme/' + theme);
         }
-        if (wordwrap == "true") {
+        if (wordwrap == 'true') {
             editor.getSession().setUseWrapMode(true);
         }
-        if (showprintmargin == "false") {
+        if (showprintmargin == 'false') {
             editor.setShowPrintMargin(false);
         }
 
-        editor.getSession().on('change', function () {
+        editor.getSession().on('change', function() {
             textarea.value = editor.getSession().getValue();
         });
 
         editor.commands.addCommand({
             name: 'Full screen',
-            bindKey: {win: 'Ctrl-F11', mac: 'Command-F11'},
-            exec: function (editor) {
+            bindKey: { win: 'Ctrl-F11', mac: 'Command-F11' },
+            exec: function(editor) {
                 minimizeMaximize(widget, main_block, editor);
             },
-            readOnly: true // false if this command should not apply in readOnly mode
+            readOnly: true, // false if this command should not apply in readOnly mode
         });
     }
 
@@ -133,15 +135,17 @@
 
         for (var i = 0; i < widgets.length; i++) {
             var widget = widgets[i];
-            widget.className = "django-ace-widget"; // remove `loading` class
+            widget.className = 'django-ace-widget'; // remove `loading` class
 
             apply_widget(widget);
         }
     }
 
-    if (window.addEventListener) { // W3C
+    if (window.addEventListener) {
+        // W3C
         window.addEventListener('load', init);
-    } else if (window.attachEvent) { // Microsoft
+    } else if (window.attachEvent) {
+        // Microsoft
         window.attachEvent('onload', init);
     }
 })();

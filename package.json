@@ -1,0 +1,25 @@
+{
+  "name": "djace_editor",
+  "title": "Ace editor for Django",
+  "version": "1.0.1",
+  "description": "djace_editor provides integration for ajax.org ACE with Django",
+  "main": "__init__.py",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vahaah/django-ace-editor"
+  },
+  "author": "Alex Vakhitov",
+  "author_email": "alex.vakhitov@gmail.com",
+  "license": "Simplified BSD",
+  "bugs": {
+    "url": "https://github.com/vahaah/django-ace-editor"
+  },
+  "scripts": {
+    "format": "prettier --write \"{{djace_editor/static/djace_editor/*,tests/**/*,*},*}.{js,jsx,ts,tsx,css,scss,json,md,markdown}\""
+  },
+  "homepage": "https://github.com/vahaah/django-ace-editor",
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^1.16.4"
+  }
+}

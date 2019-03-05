@@ -1,2 +1,2 @@
-include README.rst LICENCE
+include README.rst LICENCE package.json requirements/production.txt
 recursive-include djace_editor/static *

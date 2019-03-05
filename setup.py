@@ -1,20 +1,46 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup
+import json
+import os
+
+from setuptools import find_packages, setup
+from setuptools.command.sdist import sdist
+
+
+# Override build command
+class BuildCommand(sdist):
+
+    def run(self):
+        # Run the original build command
+        sdist.run(self)
+        # os.system('rm -vrf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info')
+        os.system('rm -vrf ./*.egg-info')
+
+
+with open('package.json') as f:
+    package_json = json.load(f)
+
+
+def read_requirements(requirements):
+    """Parse requirements from requirements.txt."""
+    with open(requirements, 'r') as f:
+        reqs = [line.rstrip() for line in f]
+    return reqs
+
 
 setup(
-    name='djace_editor',
-    version='1.0.0',
-    description='djace_editor provides integration for ajax.org ACE with Django',
+    name=package_json["name"],
+    version=package_json["version"],
+    description=package_json["description"],
     long_description=open('README.rst').read(),
 
-    author='Alex Vakhitov',
-    author_email='alex.vakhitov@gmail.com',
-    license="Simplified BSD",
-    url='https://github.com/smidth/django-ace-editor',
+    author=package_json["author"],
+    author_email=package_json["author_email"],
+    license=package_json["license"],
+    url=package_json["homepage"],
 
-    packages=['djace_editor'],
+    packages=find_packages(exclude=["tests"]),
     include_package_data=True,
-    install_requires=['Django', 'setuptools'],
+    install_requires=read_requirements("requirements/production.txt"),
 
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -25,4 +51,7 @@ setup(
         'Programming Language :: Python',
         'Framework :: Django',
     ],
+    cmdclass={
+        'sdist': BuildCommand,
+    }
 )
